@@ -35,7 +35,8 @@ var data = {
 
 
 
-//generate adjacency list - pplUserFollows - list of ppl that a person follows {user_id: [array of ppl user_id follows]}
+//generate adjacency list for directed graph:
+//pplUserFollows - list of ppl that a person follows {user_id: [array of ppl user_id follows]}
 //pplThatFollowUser = list of ppl that follow a given user {user_id: [array of ppl that follow user_id]}
 let pplUserFollows = {};
 let pplThatFollowUser = {};
@@ -167,22 +168,15 @@ doesntFollowBack();
 // List everyone and their reach (sum of # of followers and # of followers of followers)
 function calculateReach() {
   let reach = {};
-  for (let user in pplUserFollows) {
-    if (!reach[user]) {
-      reach[user] = 0;
-      reach[user] += pplUserFollows[user].length;
-    }
-    else { reach[user] += pplUserFollows[user].length; }
-  }
   for (let user in pplThatFollowUser) {
-    if (!reach[user]) {
-      reach[user] = 0;
-      reach[user] += pplThatFollowUser[user].length;
+    let final = pplThatFollowUser[user];
+    let arr;
+    for (i = 0; i < pplThatFollowUser[user].length; i++) {
+      let FofF = pplThatFollowUser[user][i];
+      arr = pplThatFollowUser[FofF];
+      final = Array.from(new Set(arr.concat(final)));
     }
-    else { reach[user] += pplThatFollowUser[user].length; }
-  }
-  for (let user in reach) {
-    console.log([user] + " has a reach of " + reach[user]);
+    console.log(user + " has a reach of " + final.length);
   }
 }
 
