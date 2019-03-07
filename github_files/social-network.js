@@ -172,8 +172,7 @@ function calculateReach() {
     let final = pplThatFollowUser[user];
     let arr;
     for (i = 0; i < pplThatFollowUser[user].length; i++) {
-      let FofF = pplThatFollowUser[user][i];
-      arr = pplThatFollowUser[FofF];
+      arr = pplThatFollowUser[pplThatFollowUser[user][i]];
       final = Array.from(new Set(arr.concat(final)));
     }
     console.log(user + " has a reach of " + final.length);
