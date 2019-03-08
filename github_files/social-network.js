@@ -166,6 +166,7 @@ doesntFollowBack();
 
 
 // List everyone and their reach (sum of # of followers and # of followers of followers)
+//aka looking for all paths of length 2
 function calculateReach() {
   let reach = {};
   for (let user in pplThatFollowUser) {
